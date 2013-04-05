@@ -8,6 +8,7 @@ from datetime import datetime
 script, filename, filename1, filename2 = argv
 #script, u.user, u.data, u.item
 
+
 def load_users(session):
     with open(filename, 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter ='|')
