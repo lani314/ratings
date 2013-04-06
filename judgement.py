@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-	user_list = model.session.query(model.User).limit(5).all()
+	user_list = model.session.query(model.User).limit(25).all()
 
 	print user_list
 	return render_template("user_list.html", users=user_list)
@@ -38,8 +38,58 @@ def authenticate():
 		# if info in table, redirect user to index page
 		return redirect("/")
 
+@app.route("/new_user")
+def new_user():
+	# return template of login form
+	return render_template("new_user.html")
+
+@app.route("/save_user", methods=["POST"])
+def add_user():
+	# make variable for email input of user in form
+	# request.form is built-in function to retrieve form info
+	email = request.form['email']
+	# make variable for password input of user in form
+	password = request.form['password']	
+
+	add_user = model.User()
+
+	add_user.email = email
+
+	add_user.password = password
+
+	model.session.add(add_user)
+	model.session.commit()
+
+	return redirect("/")	
+
+
+#@app.route("/", methods=["POST"])
+def user_get_info():
+
+	# someone clicks on user 
+
+	# from user id initiate query
+
+	user_get = model.session.query(model.User).get(i).filter_by("ratings").all()
+
+	#  from ratings_id query the movie names
+
+	return redirect(" ")	
+
 	
 if __name__ == "__main__":
 	app.run(debug = True)
+
+
+
+
+
+
+
+
+
+
+
+
 
 

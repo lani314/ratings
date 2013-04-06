@@ -40,7 +40,7 @@ def load_movies(session):
        
                 add_object3 = Movie(id = row[0], name = title, released_at = released_at, imdb_url = row[4])
                 session.add(add_object3)
-            session.commit()
+        session.commit()
 
 
 def load_ratings(session):
