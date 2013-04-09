@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>Ratings </title>
+	</head>
+		<body>
+			<ul>
+			{% for rating in ratings %}
+
+			<li> movie {{ ratings.name }}</li>
+
+			{% endfor %}
+
+			{% for rating in ratings %}
+
+			rating {{ rating.rating }} 
+
+			rating {{ ovie.name }} 
+
+
+			{% endfor %}
+
+			</ul>
+
+		</body>
+</html>

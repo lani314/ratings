@@ -1,11 +1,22 @@
 <html>
+	<head>
+		<title>Ratings </title>
+	</head>
+		<body>
+			HELLO
+			<ul>
+			{% for rating in ratings %}
 
+			<!-- We now have all our info linked based on ID. -->
 
-{% for user in users %}
-<li>User {{ user.id }}, rating {{ rating.id }} and movie {{ movie.name }}. </li>
+<!-- 			We can now go through the joined tables to extract name and rating
+ -->			
+			<li> movie {{ rating.movie.name }} rating {{ rating.rating }}</li>
 
-{% endfor %}
+			{% endfor %}
 
+			</ul>
+
+		</body>
 </html>
-
 

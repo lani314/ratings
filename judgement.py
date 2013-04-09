@@ -1,7 +1,14 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, g, session
 import model
 
 app = Flask(__name__)
+app.SECRET_KEY = "fishy"
+
+# MAKE 
+
+@app.before_request
+def before_request():
+	g.id = session.get(id)
 
 @app.route("/")
 def index():
@@ -36,7 +43,9 @@ def authenticate():
 		return redirect("/login")
 	else:
 		# if info in table, redirect user to index page
-		return redirect("/")
+		return redirect("/users_all")
+
+
 
 @app.route("/new_user")
 def new_user():
@@ -60,36 +69,35 @@ def add_user():
 	model.session.add(add_user)
 	model.session.commit()
 
-	return redirect("/")	
+	return redirect("/")
 
+@app.route("/users_all/<int:id>", methods=["GET"])
+def users_all(id):
+	# id = session.get("id")
+	# query for info on user id, defined as user variable
+	user = model.session.query(model.User).get(id)
 
-#@app.route("/", methods=["POST"])
-def user_get_info():
+	# get user and ratings joining, defined as variable 
+	ratings = user.ratings
+	#print ratings
 
-	# someone clicks on user 
+	# loop through the ratings
+	# for rating in ratings:
+	# 	# rating and movie join, defined as variable
+	# 	print rating.rating
+	# 	print rating.movie.name
+	# 	#movie = rating.movie
+		# we should now have our movies and ratings for the user??
 
-	# from user id initiate query
+	# return template with user ratings and movie titles
+	return render_template("users_all.html", ratings=ratings)
 
-	user_get = model.session.query(model.User).get(i).filter_by("ratings").all()
-
-	#  from ratings_id query the movie names
-
-	return redirect(" ")	
-
+	# print movie.name, rating.rating
 	
+	# return "URL works %d"%id
+ 
+
 if __name__ == "__main__":
 	app.run(debug = True)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
