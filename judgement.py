@@ -2,13 +2,13 @@ from flask import Flask, render_template, redirect, request, g, session
 import model
 
 app = Flask(__name__)
-app.SECRET_KEY = "fishy"
+app.secret_key = 'fishy'
 
 # MAKE 
 
 @app.before_request
 def before_request():
-	g.id = session.get(id)
+	g.id = session.get('id')
 
 @app.route("/")
 def index():
@@ -43,7 +43,8 @@ def authenticate():
 		return redirect("/login")
 	else:
 		# if info in table, redirect user to index page
-		return redirect("/users_all")
+		session['id'] = id
+		return redirect("/users_all/<int:id>")
 
 
 
