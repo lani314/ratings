@@ -44,7 +44,7 @@ def authenticate():
 	else:
 		# if info in table, redirect user to index page
 		session['id'] = id
-		return redirect("/users_all/<int:id>")
+		return redirect("/movie_search")
 
 
 
@@ -71,6 +71,17 @@ def add_user():
 	model.session.commit()
 
 	return redirect("/")
+
+
+@app.route("/movie_search", methods=["GET"])
+def user_search():
+
+	# query for movie information by id
+	movie = model.session.query(model.Movie).get(id)
+
+	# render template
+	return render_template("movie_search.html" movies=movie)
+ 
 
 @app.route("/users_all/<int:id>", methods=["GET"])
 def users_all(id):
