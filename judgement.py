@@ -76,11 +76,44 @@ def add_user():
 @app.route("/movie_search", methods=["GET"])
 def user_search():
 
+	
 	# query for movie information by id
-	movie = model.session.query(model.Movie).get(id)
+	# movie = model.session.query(model.Movie).get(id)
 
 	# render template
-	return render_template("movie_search.html" movies=movie)
+	return render_template("movie_search.html")
+
+@app.route("/movie_search", methods=["POST"])
+def display_search():
+
+	# retrieving user input from search form
+	query = request.form['search']
+	# query from movie class and filter name of movies via the ilike function
+	# ilike = search matched data
+	# if there is match, print all matching data up to 30
+	movies = model.session.query(model.Movie).\
+		filter(model.Movie.name.ilike("%" + query + "%")).\
+		limit(30).all()
+
+
+	# render template and pass query into template
+	# pass on movies query to go be iterated through in results html page
+	return render_template("results.html", movies=movies)
+
+@app.route("/add_rating")
+def new_user():
+	# return template of login form
+	return render_template("add_rating.html")
+
+@app.route("/save_addedrating", methods=["POST"])
+def add_user():
+
+	add_rating = request.form['added_rating']
+
+	saved_ratingadd = Rating(movie_id=row[1], user_id=row[0], rating=row[2])
+            session.add(saved_ratingadd)
+
+	return redirect("/")
  
 
 @app.route("/users_all/<int:id>", methods=["GET"])

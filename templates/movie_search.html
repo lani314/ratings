@@ -1,12 +1,8 @@
 <html>
-	NOTE: SHOULD BE ABLE TO QUERY BASED ON DATA 
-		<body>
-			This should be a form that searches for films based on their ID.
-			When the ID matches an ID in the database, the info is displayed.
-			<form action="{{url_for('search')}}" method="post">
-			<input type="text" name="search"
-			<input type="submit">
+	<body>
+		Search for a movie! Type in the name.
+		<form action="/movie_search" method="post">
+			<input type="text" name="search">
 		</form>
-		</body>
+	</body>
 </html>
-

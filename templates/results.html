@@ -1,0 +1,32 @@
+<html>
+<body>
+<!-- Iterate through movies as queried from database
+ -->
+		{% for movie in movies %}
+			{{movie.name}}
+		{% endfor %}
+
+<!-- We want to view results here
+ -->
+<p>
+Do you want to add or update your ratings of this film?
+</p>
+<html>
+<form action="/save_addedrating" method="POST">
+
+	<p>Add Your Rating Here</p>
+		
+	<input type="text" name="added_rating" />
+
+	<input type="submit">
+</form>
+<form action="/save_updatedrating" method="POST">
+
+	<p>Update Your Rating Here</p>
+		
+	<input type="text" name="updated_rating" />
+
+	<input type="submit">
+</form>
+</body>
+</html>
